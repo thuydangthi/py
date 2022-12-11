@@ -53,7 +53,7 @@ Mở terminal và chạy câu lệnh `python helloworld.py`
 
 ## keywords
 Các keywords trong python:
-False, True, await, else, import, None, except, try,raise, class, return, or, and, is, as, in, not, lambda, def, pass, from, nonlocal, for, while, finally, continue, break, assert, del, global, with, async, elif, if, yield
+False, True, await, else, import, None, except, try, raise, class, return, or, and, is, as, in, not, lambda, def, pass, from, nonlocal, for, while, finally, continue, break, assert, del, global, with, async, elif, if, yield
 
 ## Identifiers
 Identifiers, định danh, tức là các tên dùng để đặt cho các biến, các class, tên hàm, method,... trong python. Ví dụ:
@@ -224,7 +224,9 @@ Ví dụ:
 
         x = 1
         y = 2
-    Một điểm đáng chú ý trong Python 3.X đó là kiểu dữ liệu số nguyên là vô hạn. Điều này cho phép chúng ta tính toán với những số cực kì lớn, điều mà đa số các ngôn ngữ lập trình khác KHÔNG THỂ.
+
+
+Một điểm đáng chú ý trong Python 3.X đó là kiểu dữ liệu số nguyên là vô hạn. Điều này cho phép chúng ta tính toán với những số cực kì lớn, điều mà đa số các ngôn ngữ lập trình khác KHÔNG THỂ.
 #### Số thập phân
 Ví dụ:
 
@@ -292,7 +294,7 @@ Chúng ta sẽ đi kỹ hơn về nó ở phần sau.
 Có hai chữ boolean: True và False.
 
 Ví dụ:
-    pass = true
+    pass = True
 
 ### String
 Ký tự chữ là các ký tự unicode được đặt trong một dấu ngoặc. Ví dụ:
