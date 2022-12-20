@@ -1,6 +1,8 @@
 n = int(input("n: "))
 
 if n % 2 == 0:
-    print("Even")
+    a = "Even"
 else:
-    print("Odd")
+    a = "Odd"
+
+print(a)

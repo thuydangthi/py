@@ -1,3 +1,4 @@
 n = int(input("n: "))
 
-print("Even" if n % 2 == 0 else "Odd")
+a = "Even" if n % 2 == 0 else "Odd"
+print(a)

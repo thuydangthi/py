@@ -1,7 +1,7 @@
 # Kiểm soát luồng trong python
 ## Luồng if else trong python
 Trong python, chúng ta sử dụng câu lệnh if, else để thực hiện biểu thức điều kiện.
-Chúng ta có các dạng viết câu lệnh điều kiện như sau: if, else và elif
+Chúng ta có các dạng viết câu lệnh điều kiện như sau: if, else và elif.
 ### Câu lệnh if
 Cú pháp của câu lệnh if trong Python là:
 
