@@ -149,6 +149,31 @@ Ví dụ in ra nhiều object và phân cách giữa các object là `---`, khô
 
 ### Định dạng đầu ra Output formatting
 Đôi khi chúng ta sẽ cần định dạng đầu ra của mình để làm code trông tường minh hơn. Chúng ta có một số cách sau:
+#### Output formatting sử dụng việc nối chuỗi
+
+Chúng ta cũng có thể in chuỗi mà được nối bằng việc sử dụng toán tử, hãy xem xét các ví dụ sau:
+
+Ví dụ in ra chuỗi được nối từ 2 chuỗi khác:
+
+    print("Hello" + "how are you?")
+
+Hoặc in 7 lần 1 chuỗi:
+
+    print("Hello"*7)
+
+Hoặc in tổng của 2 số:
+
+    print(5 + 7)
+
+Nhưng hãy nhớ, chúng ta không thể làm thế này:
+
+    print("Hello" + "how are you?" + 1)
+
+    Traceback (most recent call last):
+    File output6.py", line 2, in <module>
+        print("Hello" + "how are you?" + 1)
+    TypeError: can only concatenate str (not "int") to str
+
 #### Output formatting sử dụng operator %
 Toán tử % có thể được dùng để định dạng chuỗi. Chúng ta cùng xem xét ví dụ sau:
 
@@ -174,31 +199,6 @@ Hoặc chúng ta cũng có thể viết như sau:
     y = 10
 
     print(f'The value of x is {x} and y is {y}')
-
-#### Output formatting sử dụng việc nối chuỗi
-
-Chúng ta cũng có thể in chuỗi mà được nối bằng việc sử dụng toán tử, hãy xem xét các ví dụ sau:
-
-Ví dụ in ra chuỗi được nối từ 2 chuỗi khác:
-
-    print("Hello" + "how are you?")
-
-Hoặc in 7 lần 1 chuỗi:
-
-    print("Hello"*7)
-
-Hoặc in tổng của 2 số:
-
-    print(5 + 7)
-
-Nhưng hãy nhớ, chúng ta không thể làm thế này:
-
-    print("Hello" + "how are you?" + 1)
-
-    Traceback (most recent call last):
-    File output6.py", line 2, in <module>
-        print("Hello" + "how are you?" + 1)
-    TypeError: can only concatenate str (not "int") to str
 
 ## Đầu vào Input
 Trong khi lập trình, đôi khi chúng ta có thể muốn lấy thông tin đầu vào từ người dùng. Trong Python, chúng ta có thể sử dụng hàm input().
@@ -246,22 +246,22 @@ Hãy xem xét thêm ví dụ sau:
     b = 2
 
     # addition
-    print ('Sum: ', a + b)  
+    print('Sum: ', a + b)
 
     # subtraction
-    print ('Subtraction: ', a - b)   
+    print('Subtraction: ', a - b)
 
     # multiplication
-    print ('Multiplication: ', a * b)  
+    print('Multiplication: ', a * b)
 
     # division
-    print ('Division: ', a / b) 
+    print('Division: ', a / b)
 
     # modulo
-    print ('Modulo: ', a % b)  
+    print('Modulo: ', a % b)
 
     # a to the power b
-    print ('Power: ', a ** b)
+    print('Power: ', a ** b)
 ## Toán tử gán trong python
 Toán tử gán được sử dụng để gán giá trị cho biến. Ví dụ:
 
@@ -299,7 +299,7 @@ Ví dụ:
     a = 5
     b = 2
 
-    print (a > b)
+    print(a > b)
 
 Trong python chúng ta có các toán tử so sánh như sau: ==, !=, <, >, <=, >=, <> (like !=)
 
@@ -395,92 +395,3 @@ Chúng ta cùng xem xét ví dụ sau:
 
     # check if 'a' key is present in dict1
     print('a' in dict1)  # prints False
-
-# Luồng if else trong python
-Trong python, chúng ta sử dụng câu lệnh if, else để thực hiện biểu thức điều kiện.
-Chúng ta có các dạng viết câu lệnh điều kiện như sau: if, else và elif
-## Câu lệnh if
-Cú pháp của câu lệnh if trong Python là:
-
-    if condition:
-        # body of if statement
-
-- Nếu condition là đúng, thì đoạn mã bên dưới câu lệnh if được thực thi
-- Nếu condition là sai, thì đoạn mã bên dưới câu lệnh if KHÔNG được thực thi
-
-Ví dụ:
-
-    number = 10
-
-    # check if number is greater than 0
-    if number > 0:
-        print('Number is positive.')
-
-    print('Here')
-
-Bây giờ hãy thử đổi giá trị của number thành 0 và chạy lại chương trình, chúng ta sẽ thấy nó chỉ in ra `Here`.
-
-## Câu lệnh else
-Chúng ta cùng xem xét ví dụ sau khi chúng ta muốn in ra màn hình là "Negative number" nếu giá trị của number là một số không dương:
-
-    number = 10
-
-    if number > 0:
-        print('Positive number')
-
-    else:
-        print('Negative number')
-
-    print('This statement is always executed')
-Ở đây chúng ta thêm câu lệnh `else`, có nghĩa là nếu điều kiện ở if không đúng, thì mặc định một cách tự động là chương trình sẽ chạy khối code ở dưới `else`.
-
-## Câu lệnh elif
-Bây giờ chúng ta muốn nâng cấp bài toán bên trên lên bằng cách, nếu số không lớn hơn 0 và bằng 0 thì in ra màn hình là "Zero.
-Hãy xem xét ví dụ sau:
-
-    number = 0
-
-    if number > 0:
-        print("Positive number")
-
-    elif number == 0:
-        print('Zero')
-    else:
-        print('Negative number')
-
-    print('This statement is always executed')
-
-## If lồng nhau
-Chúng ta cũng có thể sử dụng các câu lệnh if lồng trong if như sau:
-    
-    # outer if statement
-    if condition1:
-        # statement(s)
-
-        # inner if statement
-        if condition2: 
-            # statement(s)
-
-Chúng ta cùng xem xét các ví dụ sau:
-
-    number = 5
-
-    # outer if statement
-    if (number >= 0):
-        # inner if statement
-        if number == 0:
-        print('Number is 0')
-        
-        # inner else statement
-        else:
-            print('Number is positive')
-
-    # outer else statement
-    else:
-        print('Number is negative')
-
-    # Output: Number is positive
-
-Trong ví dụ trên, chúng ta sử dụng câu lệnh if lồng nhau để kiểm tra xem số đã cho là dương, âm hay bằng 0.
-
-___Lưu ý:___ sử dụng if lồng nhau có thể khiến code chúng ta khó đọc hơn, vì vậy hãy chú ý khi sử dụng nó để tránh lách các logic cần thiết.
