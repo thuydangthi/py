@@ -1,0 +1,3 @@
+def recursor():
+    recursor()
+recursor()
