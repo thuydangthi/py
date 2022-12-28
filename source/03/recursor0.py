@@ -6,7 +6,8 @@ def factorial(x):
         return 1
     else:
         return (x * factorial(x-1))
+    # return (x * factorial(x-1))
 
 
-num = 3
+num = 5
 print("The factorial of", num, "is", factorial(num))
