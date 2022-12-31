@@ -6,6 +6,7 @@ def outer():
     def inner():
         nonlocal x
         x = "hello"
+        print(x)
 
     inner()
     return x

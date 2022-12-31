@@ -1,4 +1,4 @@
-import mymodule1 as mx
+import mymodule1_testing as mx
 
 a = mx.x
 b = mx.y

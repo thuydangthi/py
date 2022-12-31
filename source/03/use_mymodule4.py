@@ -1,3 +1,3 @@
-from mymodule0 import greeting
+from mymodule0 import *
 
 greeting("Jonathan")

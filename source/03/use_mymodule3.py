@@ -1,4 +1,3 @@
-from mymodule1 import x
+from mymodule1_testing import x, y
 
-a = x
-print(a)
+print(x)

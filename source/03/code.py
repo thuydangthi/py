@@ -1,9 +1,13 @@
-def m_sum(a, b):
-    sum = a + b
-    return sum
+# declare variable x
+x = 2
 
-x = m_sum(a=1, b=3)
+def mmath():
+    # use of global keyword
+    # global x
 
-print(x)
+    x *= 2
+    print("Inside mmath function ", x)
 
-print(m_sum(a=1, b=3))
+print("Before calling mmath function ", x)
+mmath()
+print("After calling mmath function ", x)

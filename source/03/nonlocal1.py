@@ -5,6 +5,7 @@ def outer():
     # nested function
     def inner():
         x = "hello"
+        print(x)
 
     inner()
     return x
