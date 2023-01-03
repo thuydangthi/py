@@ -28,3 +28,16 @@ Run your program with python einstein.py. Type 50 and press Enter. Your program 
 
 Let's write the code and break it down into functions.
 """
+
+def calculate_number_of_Joules(kg):
+    # 
+    number_of_Joule = kg*pow(300000000, 2)
+    return number_of_Joule
+
+def main():
+    # 
+    kg = int(input("Kg: "))
+    number_of_Joule = calculate_number_of_Joules(kg=kg)
+    print(number_of_Joule)
+
+main()

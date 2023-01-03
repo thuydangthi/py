@@ -22,7 +22,7 @@ Recall that a str comes with quite a few methods, per docs.python.org/3/library/
 Test
 
 Run your program with python tip.py. Type $50.00 and press Enter. Then, type 15% and press Enter. Your program should output:
-Leave $7.50    
+Leave $7.50 
 
 Run your program with python tip.py. Type $100.00 and press Enter. Then, type 18% and press Enter. Your program should output:
 Leave $18.00
@@ -39,12 +39,13 @@ def main():
 
 
 def dollars_to_float(d):
-    # TODO
+    dollars = float(d.split("$")[1])
+    return dollars
 
 
 def percent_to_float(p):
-    pass
-    # TODO
+    percent = int(p.split("%")[0])/100
+    return percent
 
 
 main()
