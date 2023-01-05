@@ -1144,6 +1144,56 @@ Một cách khác để tạo bản sao là sử dụng chức năng có sẵn `
     print(car1["color"]) # error KeyError: 'color'
 
 ## Python Sets
+Một set là một tập hợp các dữ liệu không trùng lặp. Tức là các item của một set không thể trùng nhau. Ví dụ:
+
+    myset = {"apple", "banana", "cherry"}
+
+Set là một trong 4 loại dữ liệu được xây dựng trong Python, được sử dụng để lưu trữ các bộ sưu tập dữ liệu, 3 loại còn lại là List, Tuple và Dictionary, tất cả đều có những đặc điểm và cách sử dụng khác nhau.
+
+Dữ liệu kiểu set không có thứ tự, không được lập chỉ mục index cho các item.
+
+Ví dụ sau cho thấy việc dùng set hiệu quả: khi chúng ta cần lưu một bộ id sinh viên, id của sinh viên thì không trùng nhau.
+
+### Tạo set
+Có các cách tạo set sau:
+
+    myset = {"apple", "banana", "cherry"}
+
+Hoặc:
+
+    myset = set()
+
+Lưu ý: nếu tạo set rỗng bằng cách viết
+
+    myset = {}
+
+thì sẽ cho ra một dict rỗng.
+
+Nếu chúng ta cố gắng tạo 1 set có các item trùng nhau, chương trình không báo lỗi và tự động không đưa các item trùng nhau vào set.
+
+Hãy chạy thử chương trình sau:
+
+    numbers = {2, 4, 6, 6, 2, 8}
+    print(numbers)   # {8, 2, 4, 6}
+
+Lưu ý:
+- Vì các set không có thứ tự nên chúng ta không thể biết chắc chắn các item sẽ trong set sẽ xuất hiện theo thứ tự nào.
+- Các item trong một set có thể có bất kỳ kiểu dữ liệu nào và không giống nhau.
+
+        set1 = {"apple", "banana", "cherry"}
+        set2 = {1, 5, 7, 9, 3}
+        set3 = {True, False, False}
+        set4 = {"abc", 34, True, 40, "male"}
+### Truy cập các item của set
+
+### Thêm item vào set
+
+### Xóa items
+
+### Lặp qua set
+
+### Nối 2 set
+
 ## Python Strings
 
 ## Python Boolean
