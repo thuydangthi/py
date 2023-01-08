@@ -3,6 +3,7 @@ car1 = {
     "model": "Mustang",
     "year": 1964
 }
+
 car2 = dict(car1)
 print(car2)
 

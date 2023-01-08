@@ -1184,7 +1184,7 @@ Lưu ý:
         set2 = {1, 5, 7, 9, 3}
         set3 = {True, False, False}
         set4 = {"abc", 34, True, 40, "male"}
-
+- Out of types predefined by Python only the immutable ones, such as strings, numbers, and tuples, are hashable.
 ### Truy cập các item của set
 Vì set không có thứ tự nên không thể truy cập vào từng phần tử của set thông qua index của các item trong set.
 Nhưng chúng ta có thể truy cập bằng cách lặp qua các item, sử dụng vòng lặp `for`, hoặc kiểm tra item đó có thuộc set không bằng việc sử dụng từ khóa `in`.

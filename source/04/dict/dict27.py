@@ -5,6 +5,7 @@ car1 = {
 }
 
 car2 = car1
+print(car2["year"])
 
 car1["year"] = 2022
 print(car2["year"])

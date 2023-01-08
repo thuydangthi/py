@@ -3,6 +3,7 @@ car1 = {
     "model": "Mustang",
     "year": 1964
 }
+
 car2 = car1.copy()
 print(car2)
 
