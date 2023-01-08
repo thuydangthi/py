@@ -1184,17 +1184,493 @@ Lưu ý:
         set2 = {1, 5, 7, 9, 3}
         set3 = {True, False, False}
         set4 = {"abc", 34, True, 40, "male"}
+
 ### Truy cập các item của set
+Vì set không có thứ tự nên không thể truy cập vào từng phần tử của set thông qua index của các item trong set.
+Nhưng chúng ta có thể truy cập bằng cách lặp qua các item, sử dụng vòng lặp `for`, hoặc kiểm tra item đó có thuộc set không bằng việc sử dụng từ khóa `in`.
+
+Ví dụ: lặp qua các item của một set và in ra các giá trị.
+
+    fruits = {"apple", "banana", "cherry"}
+
+    for x in fruits:
+    print(x)
+
+Ví dụ: kiểm tra "banana" có thuộc set trên không:
+
+    fruits = {"apple", "banana", "cherry"}
+
+    print("banana" in fruits)
+
+### Sửa item của set
+Sau khi tạo 1 set, chúng ta không thể thay đổi giá trị của một item trong set, nhưng chúng ta có thể thêm item mới hoặc xóa các item của set đó.
 
 ### Thêm item vào set
+Để thêm một item mới vào set, python cung cấp method `add()`.
+
+Ví dụ: thêm một item vào một set bằng việc sử dụng method `add()`.
+
+    fruits = {"apple", "banana", "cherry"}
+
+    fruits.add("orange")
+
+    print(fruits)
+
+Để thêm các item từ một set khác vào set hiện tại, chúng ta sử dụng  method `update()`.
+
+Ví dụ: thêm các item từ set tropical vào set fruits:
+
+    fruits = {"apple", "banana", "cherry"}
+    tropical = {"pineapple", "mango", "papaya"}
+
+    fruits.update(tropical)
+
+    print(fruits)
+
+Các đối tượng được truyền vào method update() của một set không nhất thiết phải là một set, nó có thể là bất kỳ đối tượng nào mà có thể lặp, ví dụ tuples, lists, dictionaries.
+
+Ví dụ: thêm các item của một list vào một set.
+
+    fruits = {"apple", "banana", "cherry"}
+    mylist = ["kiwi", "orange"]
+
+    fruits.update(mylist)
+
+    print(fruits)
 
 ### Xóa items
+Để xóa item ra khỏi list, chúng ta có thể sử dụng `remove()`hoặc `discard()` hoặc `pop()`, `clear()`, `del`.
+
+#### remove()
+
+Ví dụ: xóa item "banana" ra khỏi set bằng cách sử dụng method remove():
+
+    fruits = {"apple", "banana", "cherry"}
+
+    fruits.remove("banana")
+
+    print(fruits)
+
+Lưu ý: Nếu cố gắng xóa một item không tồn tại bằng method remove(), chương trình sẽ báo lỗi, hãy thử nó:
+
+    fruits = {"apple", "cherry"}
+
+    fruits.remove("banana")
+
+#### discard()
+Ví dụ xóa item "banana" ra khỏi set bằng mthod discard().
+
+    fruits = {"apple", "banana", "cherry"}
+
+    fruits.discard("banana")
+
+    print(fruits)
+
+Lưu ý: nếu cố gắng xóa một item không tồn tại bằng method discard(), chương trình sẽ không báo lỗi, hãy thử nó:
+
+    fruits = {"apple", "cherry"}
+
+    fruits.discard("banana")
+
+    print(fruits)
+
+#### pop()
+Chúng ta cũng có thể sử dụng method pop() để xóa một item bất kỳ trong set và trả ra item đã bị xóa. Vì một set thì không có sắp xếp thứ tự, nên chúng ta không thể chỉ định item nào sẽ bị xóa và không biết item nào sẽ bị xóa.
+
+Ví dụ:
+
+    set1 = {'a', 'b', 'c', 'd'}
+    removed_item = set1.pop()
+    print(removed_item)
+
+#### clear()
+Method clear() cho phép chúng ta làm rỗng một set, tức xóa hết item trong set.
+
+Ví dụ:
+
+    fruits = {"apple", "banana", "cherry"}
+
+    fruits.clear()
+
+    print(fruits)
+
+#### del
+Từ khóa del cho phép chúng ta xóa cả set.
+
+Ví dụ:
+
+    fruits = {"apple", "banana", "cherry"}
+
+    del fruits
+
+    print(fruits)
 
 ### Lặp qua set
+Tuy không thể truy cập vào các item của set thông qua index, nhưng chúng ta có thể thực hiện vòng lặp qua các item của set như sau:
+
+    fruits = {"apple", "banana", "cherry"}
+
+    for x in fruits:
+        print(x)
 
 ### Nối 2 set
+Có một số cách để nối 2 set với nhau trong python.
+Chúng ta có thể sử dụng method `union()` hoặc `update()`.
+#### union()
+Method union() nối 2 set và trả về một set mới. Chúng ta có thể gán giá trị set mới đó vào một biến.
+
+Ví dụ:
+
+    set1 = {"a", "b" , "c"}
+    set2 = {1, 2, 3}
+
+    set3 = set1.union(set2)
+    print(set3)
+    print(set1)
+    print(set2)
+
+#### update()
+Method update() thực hiện việc chèn set này sang set khác.
+
+Ví dụ:
+
+    set1 = {"a", "b" , "c"}
+    set2 = {1, 2, 3}
+
+    set1.update(set2)
+    print(set1)
+    print(set2)
+
+Method update() return None, nên nếu cố gắng viết như sau:
+
+    set1 = {"a", "b" , "c"}
+    set2 = {1, 2, 3}
+
+    set3 = set1.update(set2)
+    print(set3)
+
+thì giá trị set3 là None.
 
 ## Python Strings
+Trong lập trình máy tính, một chuỗi là một dãy các ký tự. Ví dụ, "hello" là một chuỗi chứa một dãy các ký tự 'h', 'e', 'l', 'l' và 'o'.
+Trong python, chuỗi có thể được bao bởi dấu nháy đơn hoặc dấu nháy kép, ví dụ:
+
+    # create a string using double quotes
+    string1 = "Hello"
+
+    # create a string using single quotes
+    string1 = 'Hello'
+
+Chúng ta cũng có thể tạo một string nhiều dòng bằng cách sử dụng 3 dấu nháy kép như sau:
+
+    a = """Lorem ipsum dolor sit amet,
+    consectetur adipiscing elit,
+    sed do eiusmod tempor incididunt
+    ut labore et dolore magna aliqua."""
+
+    print(a)
+
+Để khởi tạo chuỗi, chúng ta có thể làm như sau:
+
+    a = "hello"
+    b = 'hello'
+    c = ""
+    d = ''
+    e = str()
+
+### Truy cập các phần tử trong chuỗi
+Giống như nhiều ngôn ngữ lập trình phổ biến khác, chuỗi trong Python là một mảng các character.
+
+Tuy nhiên, Python không có kiểu dữ liệu character, một ký tự đơn giản chỉ là một chuỗi có độ dài bằng 1.
+
+Dẫu vậy, mỗi một character trong string của python cũng có một index và chúng ta có thể sử dụng dấu ngoặc vuông để truy cập các phần tử của chuỗi.
+
+Ví dụ: lấy char ở vị trí 1:
+
+    a = "Hello, World!"
+    print(a[1])
+
+Python cho phép truy cập char của string bằng index âm.
+Ví dụ: lấy char ở vị trí thứ 4 từ cuối và vị trí cuối cùng:
+
+    a = "Hello, World!"
+    print(a[-4])
+    print(a[-1])
+
+Python cho phép lấy ra một phạm vi char trong khoảng xác định bằng cách dùng dấu hai chấm `:`. Ví dụ:
+
+    a = "Hello, World!"
+    print(a[:])
+    print(a[:-1])
+    print(a[1:])
+    print(a[1:5])
+### Sửa đổi chuỗi
+Trong python, chúng ta không thể thay đổi giá trị một char trong một chuỗi bằng cách truy cập tới index của char đó. Ví dụ:
+
+    message = 'OK'
+    message[0] = 'H'
+    print(message)
+
+Output:
+
+    Traceback (most recent call last):
+    File "string6.py", line 2, in <module>
+        message[0] = 'H'
+        ~~~~~~~^^^
+    TypeError: 'str' object does not support item assignment
+
+Tuy nhiên, chúng ta có thể gán chuỗi mới cho biến đó, ví dụ:
+
+    message = 'OK'
+
+    # assign new string to message variable
+    message = 'HK'
+
+    print(message)
+
+### Thao tác với chuỗi
+Tuy không thể trực tiếp thay đổi giá trị từng char của một string, nhưng python cung cấp một số method để thao tác với chuỗi như sau:
+
+#### Upper
+Method `upper()` trả về chuỗi dưới dạng in hoa:
+
+    a = "Hello, World!"
+    print(a.upper())
+    print(a)
+
+Chú ý: sủ dụng method upper không làm thay đổi giá trị của chuỗi `a`, nó chỉ trả về một chuỗi dưới dạng in hoa. Nếu muốn cập nhật giá trị của a thành dạng in hoa của nó, chúng ta cần làm như sau:
+
+    a = "Hello, World!"
+    a = a.upper()
+    print(a)
+
+#### Lower
+Method `lower()` trả về chuỗi dưới dạng chữ thường:
+
+    a = "Hello, World!"
+    print(a.lower())
+    print(a)
+
+Chú ý: sủ dụng method lower không làm thay đổi giá trị của chuỗi `a`, nó chỉ trả về một chuỗi dưới dạng chữ thường. Nếu muốn cập nhật giá trị của a thành dạng chữ thường của nó, chúng ta cần làm như sau:
+
+    a = "Hello, World!"
+    a = a.lower()
+    print(a)
+
+#### Xóa khoảng trắng
+Python cung cấp method strip() để xóa khoảng trắng trước và sau một string. Ví dụ:
+
+    a = " Hello, World! "
+    print(a.strip()) # returns "Hello, World!"
+    print(a)
+
+Chú ý: giá trị của a không thay đổi, muốn thay đổi giá trị của a, phải gán lại giá trị cho nó.
+
+    a = " Hello, World! "
+    a = a.strip()
+    print(a)
+
+#### Replace String
+Method replace() sẽ thay thế một string bằng string khác:
+
+    a = "Hello, World!"
+    print(a.replace("H", "J"))
+    print(a.replace("He", "**"))
+    print(a)
+
+Lưu ý: giá trị của a trong ví dụ trên không thay đổi.
+
+#### Cắt chuỗi 
+Method split() trả về một list có các item là các string nằm giữa các dấu phân cách được truyền vào method.
+
+Ví dụ:
+
+    a = "Hello, World!"
+    print(a.split(",")) # returns ['Hello', ' World!']
+    print(a.split()) # returns ['Hello,', 'World!']
+    print(a.split("He")) # ['', 'llo, World!']
+    print(a.split("k")) # ['Hello, World!']
+    print(a)
+
+Lưu ý:
+- Giá trị của string a trong ví dụ trên không thay đổi.
+- Method split trả về một list.
+- Nếu không truyền giá trị vào method, method sẽ lấy giá trị mặc định là space.
+
+#### So sánh 2 chuỗi
+Chúng ta sử dụng toán tử `==` để so sánh hai chuỗi. Nếu hai chuỗi bằng nhau, toán tử trả về True. Nếu không, nó sẽ trả về False. Ví dụ:
+
+    str1 = "Hello, world!"
+    str2 = "I love Python."
+    str3 = "Hello, world!"
+
+    # compare str1 and str2
+    print(str1 == str2)
+
+    # compare str1 and str3
+    print(str1 == str3)
+
+#### Nối các chuỗi
+Trong Python, chúng ta có thể nối hai hoặc nhiều chuỗi bằng toán tử `+`.
+
+    greet = "Hello, "
+    name = "Jack"
+
+    # using + operator
+    result = greet + name
+    print(result)
+
+    # Output: Hello, Jack
+
+#### Kiểm tra một char có ở trong chuỗi
+Chúng ta có thể kiểm tra xem một chuỗi con có tồn tại trong một chuỗi hay không bằng cách sử dụng từ khóa `in`.
+
+Ví dụ:
+
+    print('a' in 'program') # True
+    print('at' not in 'battle') False
+
+#### Định dạng chuỗi
+Như chúng ta đã học được từ những bài trước, chúng ta không thể kết hợp chuỗi và số như thế này:
+
+    age = 36
+    txt = "My name is John, I am " + age
+    print(txt)
+
+Output:
+
+    TypeError: can only concatenate str (not "int") to str
+
+Nhưng chúng ta có thể kết hợp chuỗi với số bằng cách sử dụng method format() như sau:
+
+    age = 36
+    txt = "My name is John, and I am {}"
+    print(txt.format(age))
+
+Hoặc:
+
+    age = 36
+    txt = f"My name is John, and I am {age}"
+    print(txt)
+
+Chúng ta có thể sử dụng index một cách rõ ràng để đảm bảo các đối số được đặt đúng chỗ:
+
+    quantity = 3
+    itemno = 567
+    price = 49.95
+    myorder = "I want to pay {2} dollars for {0} pieces of item {1}."
+    print(myorder.format(quantity, itemno, price))
+
+#### Lặp qua chuỗi
+Chúng ta có thể lặp qua một chuỗi bằng cách sử dụng vòng lặp for. Ví dụ:
+
+    greet = 'Hello'
+
+    # iterating through greet string
+    for letter in greet:
+        print(letter)
+
+#### Độ dài chuõi
+Trong Python, chúng ta có thể sử dụng method len() để tìm độ dài của chuỗi. Ví dụ:
+
+    greet = 'Hello'
+
+    # count length of greet string
+    print(len(greet))
 
 ## Python Boolean
-## Pythonic
+Boolean trong python đại diện bởi 2 giá trị là True và False.
+Trong lập trình, chúng ta sẽ thu được một giá trị boolean khi thực hiện một biểu thức so sánh hay đánh giá.
+
+Ví dụ: in ra kết quả của biểu thức:
+
+    print(10 > 9)
+    print(10 == 9)
+    print(10 < 9)
+    print("10" in [1, 2, '10', (1, 2)])
+
+Ví dụ: đánh giá biểu thức trong cấu trúc if else:
+
+    a = 200
+    b = 33
+
+    if b > a:
+        print("b is greater than a")
+    else:
+        print("b is not greater than a")
+
+Ví dụ: gán kết quả của biểu thức đánh giá cho một biến:
+
+    x = "a" in {1, 2, "a", "b"}
+    print(x)
+
+### Đánh giá giá trị
+Python cung cấp hàm `bool()`, cho phép chúng ta đánh giá bất kỳ giá trị nào, và trả lại giá trị True, False tương ứng.
+
+Ví dụ:
+
+    print(bool("Hello"))
+    print(bool(15))
+    print(bool(True))
+    print(bool(1))
+    print(bool(False))
+    print(bool(0))
+    print(bool("0"))
+    print(bool(None))
+    print(bool([]))
+    print(bool(""))
+
+    x = "Hello"
+    y = 15
+
+    print(bool(x))
+    print(bool(y))
+
+### Hầu hết các giá trị là True
+Hầu hết các giá trị được đánh giá là True nếu nó có value.
+Các string là True, ngoại trừ string rỗng. Ví dụ:
+
+    print(bool(""))
+    print(bool(''))
+    print(bool(str()))
+
+Các số là True, ngoại trừ số 0. Ví dụ:
+
+    print(bool(0))
+
+Các list, tuple, set, và dictionary được đánh giá là True, ngoại trừ những list, tuple, set, và dictionary rỗng. Ví dụ:
+
+    print(bool([]))
+    print(bool({}))
+    print(bool(()))
+    print(bool(set()))
+### Một hàm có thể trả về một giá trị boolean
+Chúng ta có thể tạo một hàm và trả về giá trị dạng boolean:
+
+    def my_function() :
+    return True
+
+    print(my_function())
+
+Chúng ta có thể thực thi một số đoạn mã dựa trên việc kiểm tra giá trị boolean của hàm trả về:
+
+    def my_function() :
+        return True
+
+    if my_function():
+        print("YES!")
+    else:
+        print("NO!")
+
+Python cũng có nhiều hàm dựng sẵn trả về giá trị boolean, giống như hàm isinstance(), có thể được sử dụng để xác định xem một đối tượng có thuộc một kiểu dữ liệu nhất định hay không:
+
+    x = 200
+    print(isinstance(x, int))
+
+## Dir
+`dir()` là hàm dựng sẵn trong python, nó sẽ trả về một danh sách các thuộc tính của một đối tượng.
+
+Ví dụ:
+
+    numbers = [1, 2, 3]
+    print(dir(numbers))
