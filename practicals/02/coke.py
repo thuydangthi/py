@@ -23,7 +23,7 @@ Change Owed: 5
 Insert Coin: 5                                                                
 Change Owed: 0       
 
-Note: 
+Note:
 - If Amount Due = 25 and user enters Insert Coin = 50 then your program should output:
 Amount due: 25
 - If Amount Due = 25 and user enters Insert Coin = 30 then your program should output:
