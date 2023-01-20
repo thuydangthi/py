@@ -1,14 +1,7 @@
-def main():
-    student = get_student()
-    print(f"{student['name']} from {student['house']}")
+class Student:
+    def __init__(self, name, house):
+        self.name = name
+        self.house = house
 
-
-def get_student():
-    student = {}
-    student["name"] = input("Name: ")
-    student["house"] = input("House: ")
-    return student
-
-
-if __name__ == "__main__":
-    main()
+student1 = Student(name="Anna", house="House")
+student2 = Student("Anna", "House")

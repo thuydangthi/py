@@ -1,15 +1,10 @@
-def main():
-    student = get_student()
-    if student["name"] == "Padma":
-        student["house"] = "Ravenclaw"
-    print(f"{student['name']} from {student['house']}")
+class Student:
+    def __init__(self, name="Default name", house="Default house"):
+        self.name = name
+        self.house = house
 
+student1 = Student()
+print(f"{student1.name} from {student1.house}")
 
-def get_student():
-    name = input("Name: ")
-    house = input("House: ")
-    return {"name": name, "house": house}
-
-
-if __name__ == "__main__":
-    main()
+student2 = Student("Anna", "Gryffindor")
+print(f"{student2.name} from {student2.house}")

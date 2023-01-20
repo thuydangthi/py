@@ -1,13 +1,11 @@
-def main():
-    student = get_student()
-    print(f"{student[0]} from {student[1]}")
+class Student:
+    ...
 
 
-def get_student():
-    name = input("Name: ")
-    house = input("House: ")
-    return (name, house)
+student1 = Student()
+student1.name = input("Name: ")
+student1.house = input("House: ")
+print(f"{student1.name} from {student1.house}")
 
-
-if __name__ == "__main__":
-    main()
+student2 = Student()
+print(f"{student2.name} from {student2.house}")

@@ -1,3 +1,8 @@
-name = input("Name: ")
-house = input("House: ")
-print(f"{name} from {house}")
+class Student:
+    pass
+
+class Teacher:
+    ...
+
+class Eexam:
+    Ellipsis
