@@ -9,6 +9,7 @@ class Student:
     def attendance(self):
         print(f"{self.name} is here!")
 
+
 student1 = Student("Lan", "Gryffindor")
 student1.attendance()
 student2 = Student("Tuan", "Gryffindor")

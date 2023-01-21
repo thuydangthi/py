@@ -44,6 +44,16 @@ Ví dụ: Tạo các class trống trong python
 
 Lưu ý: theo chuẩn PEP8 về đặt tên của lớp (class) thì nên được viết theo kiểu CapWords. Ví dụ là AnonymousUser, SuperUser,...
 
+### Các thành phần chính trong một class
+Mặc dù chúng ta có thể khai báo một class hoàn toàn không chứa thành viên nào, class như vậy không có giá trị. Class trong Python thường chứa những thành phần sau:
+
+- Các attribute (biến)
+- Constructor (hàm tạo)
+- Các method (phương thức)
+- Các property (thuộc tính)
+
+Chúng ta sẽ học cụ thể về nó ở những phần kế tiếp.
+
 ## Objects
 Khi chúng ta tạo class, và sử dụng class đó làm nguyên mẫu để tạo ra các thực thể cụ thể, thì các thực thể đó được gọi là các object.
 
@@ -54,15 +64,9 @@ Ví dụ về các object:
 
 Dễ thấy rằng, lệnh tạo object không khác biệt gì so với lời gọi hàm thông thường.
 
-## Các thành phần chính trong một class
-Mặc dù chúng ta có thể khai báo một class hoàn toàn không chứa thành viên nào, class như vậy không có giá trị. Class trong Python thường chứa những thành phần sau:
-
-- Các attribute (biến)
-- Constructor (hàm tạo)
-- Các method (phương thức)
-- Các property (thuộc tính)
-
-Chúng ta sẽ học cụ thể về nó ở những phần kế tiếp.
+Một đối tượng có 2 thứ đặc trưng:
+- Thuộc tính
+- Hành vi
 
 ## Attribute
 Để hiểu attribute là gì, cùng sửa đổi chương trình của chúng ta như sau:
@@ -80,17 +84,24 @@ Chúng ta sẽ học cụ thể về nó ở những phần kế tiếp.
     print(f"{student2.name} from {student2.house}")
 
 
-Chúng ta truy cập tới các attribute của một object bằng cách dùng dấu `.`.
 
-Chúng ta đã tạo 2 object là student1 và student2. Khi chúng ta cố gắng truy xuất và in ra name và house của student 1 thì chương trình đã in ra thành công, nhưng khi cố gắng làm tương tự vói student2 thì chương trình báo lỗi.
+Chúng ta đã tạo 2 object là student1 và student2.
 
-Vì object student1 có 2 attribute là name và house được tạo trong hàm get_student (hoàn toàn nằm ngoài class), còn object student2 thì không có.
+Attribute student1 trong trường hợp này có 2 thuộc tính là name và house.
 
-=> Trong Python, attribute là những biến có thể chứa giá trị đặc trưng cho một object.
+Attribute student2 không có attribute nào.
+
+Chúng ta có thể truy cập tới các attribute của từng object. Làm việc đó bằng cách dùng dấu `.`.
+
+Khi chúng ta cố gắng truy xuất và in ra name và house của student 1 thì chương trình đã in ra thành công, nhưng khi cố gắng làm tương tự vói student2 thì chương trình báo lỗi.
+
+Vì object student1 có 2 attribute là name và house được tạo ra ở ngoài phần khai báo class (hoàn toàn nằm ngoài class), còn object student2 thì không có.
+
+=> Trong Python, attribute là những biến có thể chứa giá trị đặc trưng cho một object. Nó chính là đại diện cho thuộc tính của object.
 => Nó có thể được tạo hoàn toàn độc lập với khai báo class (không bắt buộc phải chỉ định trong khai báo class).
 
 ## Hàm constructor \__init__
-Từ ví dụ trên, chúng ta thấy các object khác nhau có thể có attribute khác nhau bằng cách chỉ định bên ngoài object như thế này:
+Từ ví dụ trên, chúng ta thấy có thể tạo object từ cùng một class nhưng có attribute khác nhau bằng cách chỉ định bên ngoài object như thế này:
 
     class Student:
         ...
@@ -111,7 +122,7 @@ Vì vậy, python cung cấp method `__init__`, là method constructors. Chúng 
 
 Nó là một khuôn mẫu để mỗi khi tạo object chúng ta phải là theo để các object được tạo ra có các loại attribute giống nhau.
 
-Ví dụ:
+Ví dụ, class Student xác định rằng, tất cả học sinh được đặc trưng bởi name, house, mỗi một object được tạo đều có sẵn 2 attribute này:
 
     class Student:
         def __init__(self, name, house):
@@ -122,21 +133,46 @@ Ví dụ:
 - `self` là từ khóa dùng đề cập tới chính object đó.
 - Ở trong hàm `__init__`, chúng ta đã yêu cầu khi tạo một object từ class Student, phải truyền name và house, vì vậy cách tạo một object trước đó
 
-    student = Student()
+        student = Student()
 
-sẽ gây lỗi:
+    sẽ gây lỗi:
 
-    TypeError: __init__() missing 2 required positional arguments: 'name' and 'house'
+        TypeError: __init__() missing 2 required positional arguments: 'name' and 'house'
 
-mà cần viết là:
+    mà cần viết là:
 
-    student = Student(name="Anna", house="house")
+        student = Student(name="Anna", house="house")
 
-hoặc chỉ cần viết ngắn gọn hơn:
+    hoặc chỉ cần viết ngắn gọn hơn:
 
-    student = Student("Anna", "house")
+        student = Student("Anna", "house")
 
-Nếu chúng ta muốn khi tạo các object từ class Student không bắt buộc truyền name và house, thì chúng ta có thể không viết method `__init__`, hoặc vẫn viết method `__init__` nhưng sử dụng default arguments. Ví dụ:
+Nếu chúng ta muốn khi tạo các object từ class Student không bắt buộc truyền name và house, có 2 cách:
+- Không viết method `__init__`
+- Hoặc vẫn viết method `__init__` nhưng sử dụng default arguments. Ví dụ:
+
+        class Student:
+            def __init__(self, name="Default name", house="Default house"):
+                self.name = name
+                self.house = house
+
+        student1 = Student()
+        print(f"{student1.name} from {student1.house}")
+
+        student2 = Student("Anna", "Gryffindor")
+        print(f"{student2.name} from {student2.house}")
+
+Chú ý:
+- Cách viết các tham số trong method `__init__` giống hàm bình thường.
+- Khi viết method `__init__` cần có tham số `self` đầu tiên.
+- Khi tạo object bằng cú pháp `new_obj = ClassName(arguments)` thì method `__init__` được tự động gọi ngay sau khi new_obj được tạo.
+## 2 loại Attribute
+### Instance Attribute
+Instance Attribute là các attribute là các attribute được gắn riêng cho từng object (object trong nhiều ngữ cảnh được gọi là instance).
+
+Attribute name, house trong đoạn mã bên trên cũng là 2 instacne attribute của object.
+
+Hãy mở rộng đoạn mã trên như sau.
 
     class Student:
         def __init__(self, name="Default name", house="Default house"):
@@ -149,14 +185,14 @@ Nếu chúng ta muốn khi tạo các object từ class Student không bắt bu�
     student2 = Student("Anna", "Gryffindor")
     print(f"{student2.name} from {student2.house}")
 
-## 2 loại Attribute
-### Instance Attribute
-Trong Python, các attribute được khai báo trong hàm tạo `__init__` của class được gọi là instance attribute. Đây là các giá trị đặc trưng cho từng object. Ví dụ, class Student xác định rằng, tất cả học sinh được đặc trưng bởi name, house.
+    student1.age = 11
+    print(f"Age of student 1: {student1.age}")
+
+Ở đây student1 còn có thêm một instance attribute là age, student2 chỉ có 2 instance attribute là name và house.
 
 Chú ý:
-- Instance Attribute được tạo ra trong hàm tạo `__init__` chứ không viết trong thân class. Biến được khai báo trong thân class lại thuộc về nhóm class instance (chúng ta sẽ học sau).
-- Instance Attribute được khai báo cùng với tham số `self`.
-
+- Attribute được tạo ra trong hàm tạo `__init__` cũng là các instance attribute.
+- Chúng ta có thể tạo thêm instance attribute cho một object bên ngoài khai báo class. Nhưng nó không phải là một cách viết tốt, chúng ta luôn nên tạo instance attribute trong constructor (`__init__`)
 #### Truy xuất instance attribute
 Với các instance attribute tạo ra như trên, chúng ta có thể truy xuất nó qua tên object trong code ở ngoài class, việc truy xuất là 2 chiều, tức chúng ta có thể gán và thay đổi giá trị.
 
@@ -187,12 +223,15 @@ Python cung cấp một một công cụ lá class attribute để thực hiện
             self.house = house
             Student.count += 1
 
+
     student1 = Student()
     print(Student.count, student1.count)
     student2 = Student()
     print(Student.count, student2.count)
     student3 = Student()
     print(Student.count, student3.count)
+
+Trong ví dụ này, count là class attribute của class Student, name và house là các instance attribute.
 
 => Như vậy, class attribute là một biến gắn liền với chính class, có thể được truy xuất từ các object hoặc từ chính class và có giá trị chung cho tất cả các object.
 
@@ -274,13 +313,15 @@ Xem xét bài toán điểm danh học sinh:
     student2 = Student("Minh", "Gryffindor")
     student2.check(student2.name)
 
+Chúng ta có class Student và hàm attendance bên ngoài class.
+
 Ở đây dòng mã `student1.check(student1.name)` sẽ in ra màn hình `Lan is here!` còn dòng mã `student2.check(student2.name)` sẽ báo lỗi `'Student' object has no attribute 'check'`.
 
-Như vậy giống như attribute, cách viết trên không thỏa mãn rằng tất các các học sinh đều có thể thực hiện chức năng điểm danh, mà phải chủ động khai báo sau khi đã tạo object.
+Như vậy giống như attribute, cách viết trên không thỏa mãn rằng tất các các học sinh đều có thể thực hiện chức năng điểm danh, mà phải chủ động khai báo bằng cách viết `student1.check = attendance` sau khi đã tạo object.
 
 Để khiến cho các object có cùng các method ngay sau khi khởi tạo, chúng ta có thể khai báo các method trong thân class.
 
-Method là một phần của Object (method chính là hành động của object). Hay nói cách khác, method nằm bên trong class và có thể xử lý dữ liệu được chứa bên trong class.
+=> Method là một phần của Object (method chính là hành vi của object). Hay nói cách khác, method nằm bên trong class và có thể xử lý dữ liệu được chứa bên trong class.
 
 Khi tạo một class bất kỳ, python tích hợp sẵn một số method, hoặc chúng ta cũng có thể tự tạo các method cho riêng mình.
 
@@ -307,7 +348,7 @@ Chúng ta sửa đoạn mã trên như sau:
 
 Method attendance trên đây là một instance method.
 
-Instance method trong Python là những phương thức có khả năng truy xuất trạng thái của object. Nhắc lại: trạng thái của object trong Python được lưu trữ trong các instance attribute (biến thành viên).
+Instance method trong Python là những phương thức có khả năng truy xuất trạng thái của object (trạng thái của object trong Python được lưu trữ trong các instance attribute)
 
 Lưu ý:
 - Danh sách tham số của instance method tương tự của hàm, nhưng cần có từ khóa `self`. Nếu có nhiều tham số, `self` phải là tham số đầu tiên được liệt kê.
@@ -346,7 +387,8 @@ Ví dụ:
 
 Để tạo ra class method, chúng ta sử dụng decorator @classmethod.
 
-Class method cũng bắt buộc phải có một biến đặc biệt trong danh sách tham số: biến cls (viết tắt của class). Biến này có vai trò tương tự như biến self của instance method. Điểm khác biệt nằm ở chỗ biến cls chứa thông tin về chính class.
+Lưu ý:
+- Class method cũng bắt buộc phải có một biến đặc biệt trong danh sách tham số: biến cls (viết tắt của class). Biến này có vai trò tương tự như biến self của instance method. Điểm khác biệt nằm ở chỗ biến cls chứa thông tin về chính class.
 
 Trong ví dụ trên, count là một class attribute – chứa thông tin về chính class. Do vậy, có thể truy xuất count qua biến cls. Trên thực tế, bạn có thể hình dung truy xuất qua biến cls cũng chính là truy xuất qua tên class. Tức là `cls.count` tương đương với `Student.count`.
 
