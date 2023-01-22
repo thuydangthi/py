@@ -335,7 +335,7 @@ Chúng ta sửa đoạn mã trên như sau:
             self.name = name
             self.house = house
             Student.count += 1
-        
+
         def attendance(self):
             print(f"{self.name} is here!")
 
@@ -476,9 +476,290 @@ Output:
 Property là một loại thành viên đặc biệt trong class Python cho phép truy xất và kiểm soát truy xuất một (instance) attribute cụ thể. Property rất quan trọng và được khuyến khích sử dụng khi xây dựng các class chuyên để chứa dữ liệu. Python cung cấp một số cách khác nhau để khai báo property.
 
 ### Mô hình getter/setter
-Trong class python, dù có cách viết __ và _, nhưng về bản chất, mọi thành viên của class đều là public và có thể truy xuất tự do.
+Trong class python, dù được quy ước cách viết __ và _ dùng để chỉ những attribute hoặc mehtod private và protected trong class, nhưng về bản chất, mọi thành viên của class đều là public và có thể truy xuất tự do.
 
 Điều này sinh ra một vấn đề là kiểm sóat dữ liệu. Ví dụ: tuổi của con người không thể âm.
 
 Để kiểm soát việc nhập xuất dữ liệu cho các opject, không chỉ python, mà các ngôn ngữ lập trình hướng đối tượng thường sử dụng mô hình getter/setter. Ví dụ trên class Student:
 
+Theo mô hình này, những biến đăt là private (viết `__` ngay trước tên biến) là những biến cần được kiểm soát dữ liệu. Tức là nó không nên được truy xuất và thay đổi bên ngoài class. Trong python chúng ta sử dụng hai dấu gạch chân `__` cho biến private khi khai báo attribute đó trong hàm tạo `__init__()`.
+
+Ví dụ:
+
+    class Student:
+        def __init__(self, name, age):
+            self.__name = name
+            self.__age = age
+
+        def set_age(self, age: int):
+            if age > 0:
+                self.__age = age
+
+        def get_age(self):
+            return self.__age
+
+        def get_name(self):
+            return self.__name
+
+        def set_name(self, name: str):
+            self.__name = name.title()
+
+        def __str__(self):
+            return f'{self.__name} {self.__age}'
+
+    s1 = Student('tom', 10)
+    print(s1)
+    s1.set_name('bim bim')
+    print(s1)
+    s1.set_age(22)
+    print(s1)
+    s1.set_age(-1)
+    print(s1)
+
+Ứng với mỗi một biến private, chúng ta sẽ tạo 2 method get/set để nhập và xuất dữ liệu. Ví dụ với biến `__age`, chúng ta xây dựng method `get_age` để trả dữ liệu chứa trong `__age` và `set_age` để nhập dữ liệu cho `__age`. Cặp method get/set như vậy được gọi là getter và setter. Tương tự với attribute `__name` chúng ta cũng xây dựng hai method để nhập xuất dự liệu là `set_name` và `get_name`.
+
+Trong getter và setter, tùy vào yêu cầu kiểm soát mà chúng ta thực hiện những logic riêng. Ví dụ trong set_age(), chúng ta chỉ gán giá trị cho `__age` khi giá trị truyền vào lúc tạo object lớn hơn 0. Hoặc trong set_name() chúng ta sẽ viết hoa các chữ cái đầu của tên được truyền vào trước khi gán cho `__name`.
+
+Lưu ý: 
+- Việc sử dụng `__` và `_` để hạn chế quyền truy cập chỉ là quy ước, python không cấm chúng ta cố tình truy cập, tuy nhiên nó là một cách triển khai tệ.
+- Các ngôn ngữ lập trình hướng đối tượng như Java, C++ khuyến khích chúng ta không bao giờ để lộ các thuộc tính của class. Thay vào đó sẽ cung cấp getter và setter methods để truy cập từ ngoài vào. Đó là lý do vì sao những thiết kế OOP tốt trong python thường sử dụng các attribute với `__` hoặc `_` để giới hạn quyền truy cập, dù nó chỉ nằm trên quy ước.
+- Mô hình getter, setter vừa giưới thiệu là một thiết kế OOP tệ vì nó không đảm bảo tính đóng gói của đối tượng. Đồng thời sử dụng mô hình này thì việc lấy và cập nhật dữ liệu trở nên cồng kềnh vì cần quá nhiều method. Vì vậy tiếp theo chúng ta sẽ tiếp cận một mô hình khác là Property và hàm property().
+
+### Property và hàm property() trong trong python
+Property đại diện cho một chức năng trung gian giữa một method và một attribute bình thường. Tức là nó cho phép chúng ta tạo method nhưng hoạt động như một attribute. Với các property, chúng ta có thể thay đổi cách tính toán attribute.
+
+property() là một cách Pythonic để tránh các method getter, setter trong code. Hàm này cho phép biến các class attribute thành properties.
+
+property() là một build-in function.
+
+Full signature của property():
+
+    property(fget=None, fset=None, fdel=None, doc=None)
+
+Ba đối số đầu tiên nhận các function object (các function trong python cũng là các object), cụ thể:
+- fget: method trả về giá trị của managed attribute.
+- fset: method cho phép chúng ta đặt giá trị cho managed attribute.
+- fdel: method xác định cách xử lý khi xóa managed attribute.
+- doc: string đại diện cho docstring của property.
+
+Chú ý:
+- Docstring là một dạng chú thích nhiều dòng hay xuất hiện ở đầu một file Python, sau một dòng định nghĩa lớp, hàm. Đây cũng là một trong những chuẩn quy ước về định dạng, trình bày code Python. Python cung cấp method hàm help() để hỗ trợ đọc chuỗi docstring.
+- 3 đối số đầu tiên nhận về các function objects, vì vậy khi truyền vào không cần dấu ngoặc đơn.
+
+Chúng ta có thể sử dụng property như một function hoặc một decorator để xấy dựng property cho mình.
+
+### Tạo property bằng hàm property()
+Chúng ta có thể tạo các property bằng hàm property() với các đối số thích hợp truyền vào hàm và gán giá trị màn nó trả về cho một class attriute. Các đối số cho hàm property() là không bắt buộc, tức có thể gọi hàm này mà không truyền gì cả.
+
+Dưới đây là một ví dụ cho việc tạo class Circle có property để quản lý bán kính.
+
+    class Circle:
+        def __init__(self, radius):
+            self._radius = radius
+
+        def _get_radius(self):
+            print("Get radius")
+            return self._radius
+
+        def _set_radius(self, value):
+            print("Set radius")
+            self._radius = value
+
+        def _del_radius(self):
+            print("Delete radius")
+            del self._radius
+
+        radius = property(
+            fget=_get_radius,
+            fset=_set_radius,
+            fdel=_del_radius,
+            doc="The radius property."
+        )
+
+Ở đây chúng ta có class Circle, một hàm constructor  `__init__()` nhận đối số radius và lưu nó vào protected attribute có tên là `_radius`. Sau đó chúng ta có 3 public method là:
+- _get_radius() trả về giá trị hiện tại của instance attribute _radius
+- _set_radius() nhận đối số `value` và gán nó cho instance attribute _radius
+- _del_radius() xóa instance attribute _radius
+
+Khi đã có 3 method này, chúng ta tạo một class attribute có tên là radius để lưu trữ property object.
+
+Chạy đoạn mã sau:
+
+    from circle import Circle
+
+    c1 = Circle(20)
+    print(c1.radius)
+    c1.radius = 11
+    print(c1.radius)
+    del c1.radius
+    print(c1.radius)
+
+Ở đây, property radius đã giúp che giấu protected instance attribute _radius. Lúc này _radius là một managed attribute trong class. Chúng ta có thể truy cập và chỉ định giá trị cho radius trực tiếp, mỗi khi làm việc đó, python tự động gọi hàm _get_radius() và _set_radius() mà chúng ta đã truyền vào. Còn khi thực hiện `del c1.radius`, python tự động gọi _del_radius() cho chúng ta.
+
+Như vậy property là các class attribute, quản lý các instance attribute. Chúng ta có thể coi property là tập hợp các method dùng để quản lý một instance attribute lại với nhau.
+
+Chạy đoạn mã sau để thấy các method chúng ta đã truyền vào khi gọi hàm property và gán object trả về cho attribute radius:
+
+    from circle import Circle
+
+
+    print(Circle.radius.fget)
+    print(Circle.radius.fset)
+    print(Circle.radius.fdel)
+    print(dir(Circle.radius))
+    print(Circle.radius)
+
+### Tạo property bằng decorator property
+Có một cách ngắn gọn hơn để tạo property trong python là sử dụng decorator property. Cú pháp này được thêm vào python từ python 2.4. Và ngay này cách này là cách phổ biến nhất được sử dụng để tạo property.
+
+Cú pháp sử dụng decorator là sử dụng ký hiệu `@` kèm tên của decorator trước phần định nghĩa hàm/method mà chúng ta muốn dùng decorator.
+
+Ví dụ:
+
+    @decorator
+    def func(a):
+        return a
+
+Cú pháp này tương đương với:
+
+    def func(a):
+        return a
+
+    func = decorator(func)
+
+Hàm property() cũng có thể hoạt động như một decorator, vì vậy chúng ta có thể sử dụng cú pháp @property để tạo các property một cách nhanh chóng.
+
+Ví dụ:
+
+    class Circle:
+        def __init__(self, radius):
+            self._radius = radius
+
+        @property
+        def radius(self):
+            """The radius property."""
+            print("Get radius")
+            return self._radius
+
+        @radius.setter
+        def radius(self, value):
+            print("Set radius")
+            self._radius = value
+
+        @radius.deleter
+        def radius(self):
+            print("Delete radius")
+            del self._radius
+
+Code lúc này so với lúc dùng hàm property ngắn gọn và clean hơn. Bây giờ chúng ta không tạo và sử dụng các method như _get_radius(), _set_radius() và _del_radius() nữa. Mà bây giờ chúng ta có ba method có tên trùng với tên của property.
+
+Dưới đây là cách nó hoạt động:
+
+Khi sử dụng decorator để tạo property, chúng ta cần tạo puplic method đầu tiên sử dụng public name cho managed attribute, là `radius` trong đoạn mã này. Method cũng chính là method getter.
+
+Sau đó chúng ta xác định method setter và del cho property `radius`. Trong trường hợp này, thay vì sử dung decorator là @property, chúng ta sử dụng decorator lần lượt là @radius.setter và @radius.deleter.
+
+Chú ý:
+- Decorator @property phải dùng cho method getter
+- Các method setter và deleter phải được dùng decorator là @ten_property.setter và @ten_property.deleter
+- Vì python không bảo vệ dữ liệu chặt chẽ, nên ngay cả khi chúng ta tạo các property để dấu đi các non-public attribute thì chúng ta vẫn có thể trực tiếp thay đổi giá trị của các attribute đó bên ngoài class mà không thông qua property. Nhưng đó là một cách viết mã tệ.
+
+#### Property chỉ...
+Chúng ta có thể tạo ra các property chỉ đọc, hoặc chỉ cho đọc và ghi, hoặc chỉ ghi.
+
+Ví dụ cho một property chỉ đọc:
+
+    class Circle:
+        def __init__(self, radius):
+            self._radius = radius
+
+        @property
+        def radius(self):
+            """The radius property."""
+            print("Get radius")
+            return self._radius
+
+Ở đây chúng ta tạo property radius, và chỉ tạo method getter cho nó, không có method setter và deleter. Vì vậy khi cố gắng đặt lại giá trị cho _radius attribute thông qua đặt lại giá trị cho radius property thì chương trình sẽ báo lỗi "property 'radius' of 'Circle' object has no setter".
+
+Kiểm tra nó như sau:
+
+    from circle3 import Circle
+
+    c = Circle(22)
+    print(c.radius)
+    c.radius = 11 # property 'radius' of 'Circle' object has no setter
+
+Ví dụ cho property chỉ viết:
+
+    import hashlib
+    import os
+
+    class User:
+        def __init__(self, name, password):
+            self.name = name
+            self.password = password
+
+        @property
+        def password(self):
+            raise AttributeError("Password is write-only")
+
+        @password.setter
+        def password(self, plaintext):
+            salt = os.urandom(32)
+            self._hashed_password = hashlib.pbkdf2_hmac(
+                "sha256", plaintext.encode("utf-8"), salt, 100_000
+            )
+
+Ở đây hãy chú ý một điều là chúng ta không tạo attribute non-public ở method constructor mà tạo public attribute, đồng thời tạo property cùng tên. Bởi vì chúng ta muốn ngay khi tạo object mới, thì phải đi qua setter để hash mật khẩu của người dùng. Và chúng ta lưu string đã được mã hóa vào một non-public attribute có tên là _hashed_password.
+
+Cùng xem xét một ví dụ khác.
+
+    class Point:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+
+        @property
+        def x(self):
+            return self._x
+
+        @x.setter
+        def x(self, value):
+            try:
+                self._x = float(value)
+                print("Validated!")
+            except ValueError:
+                raise ValueError('"x" must be a number') from None
+
+        @property
+        def y(self):
+            return self._y
+
+        @y.setter
+        def y(self, value):
+            try:
+                self._y = float(value)
+                print("Validated!")
+            except ValueError:
+                raise ValueError('"y" must be a number') from None
+
+Ở đây chúng ta cũng tạo property x, y có tên trùng với attribute được tạo trong hàm tạo constructor. Bởi vì chúng ta muốn ngay từ lúc tạo object thì chương trình phải kiểm tra xem giá trị đối số truyền vào có phải float không.
+
+Chú ý: những property được tạo bằng hàm property() cũng có thể chỉ là property chỉ đọc, chỉ ghi,...
+
+Ví dụ:
+
+    class Circle:
+        def __init__(self, radius):
+            self._radius = radius
+
+        def _get_radius(self):
+            print("Get radius")
+            return self._radius
+
+        radius = property(
+            fget=_get_radius,
+            doc="The radius property."
+        )
+
+Ở ví dụ này, property radius chỉ đọc.
