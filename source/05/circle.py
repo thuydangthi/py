@@ -3,6 +3,7 @@ class Circle:
         self._radius = radius
 
     def _get_radius(self):
+        self._radius = 222
         print("Get radius")
         return self._radius
 
@@ -16,7 +17,7 @@ class Circle:
 
     radius = property(
         fget=_get_radius,
-        fset=_set_radius,
-        fdel=_del_radius,
+        # fset=_set_radius,
+        # fdel=_del_radius,
         doc="The radius property."
     )

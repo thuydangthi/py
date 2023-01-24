@@ -848,26 +848,11 @@ Trong instance method, có thể truy cập tới và chỉnh sửa class attrib
 
 ### Class method
 Cách gọi Class method:
-- Từ class
-- Không thể gọi từ class
+- Từ class lẫn obj
 
 Trong định nghĩa của class method, nó nhận tham số cls, chỉ tới class.
 
 Cách gọi:
-
-    MyClass.staticmethod()
-    obj1 = MyClass()
-    obj1.staticmethod()
-
-Có thể gọi static method thông qua class và object, nhưng phía sau, python vẫn tự động hạn chế quyền truy cập và chỉnh sửa tới các class attribute vào instance attribute.
-
-Trong static method, KHÔNG thể truy cập tới và chỉnh sửa instance attribute và class attribute.
-
-### Static method
-Cách gọi Static method:
-- Từ class lẫn object
-
-Trong định nghĩa của class method, nó nhận tham số cls, chỉ tới class.
 
     MyClass.classmethod()
     obj1 = MyClass()
@@ -878,6 +863,21 @@ Khi gọi bằng cách `MyClass.classmethod()`, sẽ chuyển `MyClass` vào v�
 Trong class method, KHÔNG thể truy cập tới và chỉnh sửa instance attribute, có thể truy cập và chỉnh sửa class attribute.
 
 Chú ý: từ khóa `cls` và `self` không phải quy định bắt buộc, chúng ta có thể sử dụng các từ khóa khác như `cls_name`, `obj_name` thay thế.
+
+### Static method
+Cách gọi Static method:
+- Từ class lẫn object
+
+Trong định nghĩa của class method, nó nhận tham số cls, chỉ tới class.
+
+    MyClass.staticmethod()
+    obj1 = MyClass()
+    obj1.staticmethod()
+
+Có thể gọi static method thông qua class và object, nhưng phía sau, python vẫn tự động hạn chế quyền truy cập và chỉnh sửa tới các class attribute vào instance attribute.
+
+Trong static method, KHÔNG thể truy cập tới và chỉnh sửa instance attribute và class attribute.
+
 ## Kế thừa
 Kế thừa (inheritance) là một công cụ rất mạnh và được sử dụng rất nhiều trong lập trình hướng đối tượng. Nó cho phép tạo một class mới từ một class sẵn có, qua đó có thể tái sử dụng code và giảm thiểu việc lặp code.
 
@@ -993,7 +993,7 @@ Trong ví dụ trên, chúng ta đã ghi đè hàm tạo như sau:
             self.specialization = specialization
 
 ### Private và protected trong kế thừa
-Khi một lớp con kế thừa bởi một lớp cha, thì từ lớp con chỉ có thể truy cập các member public và protected được kế thừa từ lớp cha, không thể truy cập các member private từ lớp cha.
+Khi một lớp con kế thừa bởi một lớp cha, thì lớp con chỉ nhận được những member public hoặc protected, không nhận được những member private.
 
 Ví dụ:
 

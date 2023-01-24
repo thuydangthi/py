@@ -40,6 +40,7 @@ class Student(User):
 
 
 if __name__ == '__main__':
+    u = User('Donald', 'Trump', 22)
     trump = Student('Donald', 'Trump', 22, '051311', 'Computer science')
     trump.print()
     print(trump.full_name)
