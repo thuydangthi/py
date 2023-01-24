@@ -21,3 +21,22 @@ Hint:
 
 Remember that methods should not take in any data that the object already knows (like age, year, etc.).
 """
+
+class Guitar:
+    Range = 50
+
+    def __init__(self, name="", year=0, cost=0):
+        self.name = name
+        self.year = year
+        self.cost = cost
+
+    def __str__(self):
+        return f"{self.name} ({self.year}) : ${self.cost}"
+
+    def get_age(self):
+        return 2023 - self.year
+
+    def is_vintage(self):
+        if 2023 - self.year >= Guitar.Range:
+            return True
+        return False

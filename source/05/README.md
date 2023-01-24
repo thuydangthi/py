@@ -664,7 +664,7 @@ Chú ý:
 - Các method setter và deleter phải được dùng decorator là @ten_property.setter và @ten_property.deleter
 - Vì python không bảo vệ dữ liệu chặt chẽ, nên ngay cả khi chúng ta tạo các property để dấu đi các non-public attribute thì chúng ta vẫn có thể trực tiếp thay đổi giá trị của các attribute đó bên ngoài class mà không thông qua property. Nhưng đó là một cách viết mã tệ.
 
-#### Property chỉ...
+### Property chỉ...
 Chúng ta có thể tạo ra các property chỉ đọc, hoặc chỉ cho đọc và ghi, hoặc chỉ ghi.
 
 Ví dụ cho một property chỉ đọc:
@@ -743,7 +743,7 @@ Cùng xem xét một ví dụ khác.
             except ValueError:
                 raise ValueError('"y" must be a number') from None
 
-Ở đây chúng ta cũng tạo property x, y có tên trùng với attribute được tạo trong hàm tạo constructor. Bởi vì chúng ta muốn ngay từ lúc tạo object thì chương trình phải kiểm tra xem giá trị đối số truyền vào có phải float không.
+Ở đây chúng ta cũng tạo property x, y có tên trùng với attribute được tạo trong hàm tạo constructor. Bởi vì chúng ta muốn ngay từ lúc tạo object thì chương trình phải kiểm tra xem giá trị đối số truyền vào có phải float không. Và chúng ta lưu nó vào các instance attribute non-public là `_y` và `_x`.
 
 Chú ý: những property được tạo bằng hàm property() cũng có thể chỉ là property chỉ đọc, chỉ ghi,...
 
@@ -763,3 +763,251 @@ Ví dụ:
         )
 
 Ở ví dụ này, property radius chỉ đọc.
+
+
+## Static method
+Ngoài class method, instance method, python còn hỗ trợ static method.
+
+Static method là loại method hoàn toàn tự do, không ràng buộc dữ liệu với class hay object. Chúng được đặt trong class vì một lý do nào đó.
+
+Để tạo ra static method trong class python, chúng ta sử dụng decorator @staticmethod.
+
+Ví dụ:
+
+    class User:
+        count = 0
+        def __init__(self, fname='', lname='', age=18):
+            self.fname = fname
+            self.lname = lname
+            self.age = age
+            User.count += 1
+
+        def print(self):
+            print(f'{self.fname} {self.lname} ({self.age} years old)')
+
+        @property
+        def full_name(self):
+            return f'{self.fname} {self.lname}'
+
+        @classmethod
+        def print_count(cls):
+            print(f'{cls.count} objects created')
+
+        @staticmethod
+        def birth_year(age: int) -> int:
+            from datetime import datetime as dt
+            year = dt.now().year
+            return year - age
+
+
+    if __name__ == '__main__':
+        trump = User('Donald', 'Trump', 22)
+        trump.print()
+        print(trump.full_name)
+        print(User.count)
+        User.print_count()
+        print(User.birth_year(37))
+        print(trump.birth_year(37))
+
+Ở đây chúng ta có một static method là birth_year. Method này không nhận tham số `self` hay `cls`, nhưng có thể nhận các tham số tùy ý khác. Bởi vậy nó không dùng bất kỳ thông tin nào từ object hay class, tức nó bị hạn chế loại dữ liệu mà nó có thể truy cập.
+
+Chúng ta có thể gọi static method qua class lẫn object.
+
+    print(User.birth_year(37))
+    print(trump.birth_year(37))
+
+## Cách hoạt động của instance method, class method, static method
+Chúng ta có ví dụ sau:
+
+    class MyClass:
+        def method(self):
+            return 'instance method called', self
+
+        @classmethod
+        def classmethod(cls):
+            return 'class method called', cls
+
+        @staticmethod
+        def staticmethod():
+            return 'static method called'
+
+### Instance method
+Cách gọi instance method:
+- Từ object
+- Không thể gọi từ class
+
+Ví dụ:
+    
+    obj1 = MyClass()
+    obj1.method()
+
+Trong định nghĩa của instance method, nó nhận tham số self, chỉ tới object.
+
+Khi gọi, sẽ chuyển obj1 vào vị trí tham số self.
+Trong instance method, có thể truy cập tới và chỉnh sửa class attribute.
+
+### Class method
+Cách gọi Class method:
+- Từ class
+- Không thể gọi từ class
+
+Trong định nghĩa của class method, nó nhận tham số cls, chỉ tới class.
+
+Cách gọi:
+
+    MyClass.staticmethod()
+    obj1 = MyClass()
+    obj1.staticmethod()
+
+Có thể gọi static method thông qua class và object, nhưng phía sau, python vẫn tự động hạn chế quyền truy cập và chỉnh sửa tới các class attribute vào instance attribute.
+
+Trong static method, KHÔNG thể truy cập tới và chỉnh sửa instance attribute và class attribute.
+
+### Static method
+Cách gọi Static method:
+- Từ class lẫn object
+
+Trong định nghĩa của class method, nó nhận tham số cls, chỉ tới class.
+
+    MyClass.classmethod()
+    obj1 = MyClass()
+    obj1.classmethod()
+
+Khi gọi bằng cách `MyClass.classmethod()`, sẽ chuyển `MyClass` vào vị trí tham số `cls`. Nếu gọi bằng cách `obj1.classmethod()`, python sẽ tự động chuyển lấy về đối tượng class để truyền vào cho tham số `cls`.
+
+Trong class method, KHÔNG thể truy cập tới và chỉnh sửa instance attribute, có thể truy cập và chỉnh sửa class attribute.
+
+Chú ý: từ khóa `cls` và `self` không phải quy định bắt buộc, chúng ta có thể sử dụng các từ khóa khác như `cls_name`, `obj_name` thay thế.
+## Kế thừa
+Kế thừa (inheritance) là một công cụ rất mạnh và được sử dụng rất nhiều trong lập trình hướng đối tượng. Nó cho phép tạo một class mới từ một class sẵn có, qua đó có thể tái sử dụng code và giảm thiểu việc lặp code.
+
+Ví dụ chúng ta có một class User, và chúng ta tạo một class Student kế thừa từ class User. Điều này có nghĩa là Dog kế thừa cách triển khai của Animal.
+
+Cùng xem xét một ví dụ khác như sau:
+
+    class User:
+        count = 0
+        def __init__(self, fname='', lname='', age=18):
+            self.fname = fname
+            self.lname = lname
+            self.age = age
+            User.count += 1
+
+        def print(self):
+            print(f'{self.fname} {self.lname} ({self.age} years old)')
+
+        @property
+        def full_name(self):
+            return f'{self.fname} {self.lname}'
+
+        @classmethod
+        def print_count(cls):
+            print(f'{cls.count} objects created')
+
+        @staticmethod
+        def birth_year(age: int) -> int:
+            from datetime import datetime as dt
+            year = dt.now().year
+            return year - age
+
+
+    class Student(Person):
+        def __init__(self, fname='', lname='', age=18, group='', specialization=''):
+            super().__init__(fname, lname, age)
+            self.group = group
+            self.specialization = specialization
+
+        def print(self):
+            super().print()
+            print(f'Group {self.group}/{self.specialization}')
+
+        @property
+        def academic_info(self):
+            return f'Group {self.group}, Specialization of {self.specialization}'
+
+
+    if __name__ == '__main__':
+        trump = Student('Donald', 'Trump', 22, '051311', 'Computer science')
+        trump.print()
+        print(trump.full_name)
+        print(Student.count)
+        Student.print_count()
+        print(Student.birth_year(37))
+        print(trump.academic_info)
+
+Output:
+
+    Donald Trump (22 years old)
+    Group 051311/Computer science
+    Donald Trump
+    1
+    1 objects created
+    1986
+    Group 051311, Specialization of Computer science
+
+Trong ví dụ trên chúng ta đã xây dựng hai class: User và Student.
+
+Trong class Person chúng ta tạo các instance attribute `fname`, `lname`, `age` trong hàm tạo, một class attribute `count`, một class method, một static method và một property.
+
+Chúng ta xây dựng class Student kế thừa từ class User. Trong class này chúng ta chỉ định nghĩa hàm constructor (`__init__`) và method `print()`. Chúng ta tạo object `trump`, nhưng từ object `trump` chúng ta vẫn truy xuất được tới các member của class User như property full_name, class method print_count và static method birth_year.
+
+Khi này chúng ta gọi mối quan hệ giữa class User và class Student là mối quan hệ kế thừa. Trong đó Student kế thừa User. User là lớp cha hay lớp cơ sở, còn Student là lớp con hay lớp dẫn xuất.
+
+### Cú pháp
+Cú pháp khai báo kế thừa trong python:
+
+    class ChildClass(ParentClass):
+        # code
+
+Khi kế thừa, class con kế thừa được tất cả mọi thứ từ lớp cha.
+
+Python cho phép đa kế thừa, tức là một lớp con kế thừa nhiều lớp cha.
+- Tuy nhiên việc này không được khuyến khích, vì nó khó kiểm soát và dự đoán kết quả khi 2 class cha có các member giống nhau.
+
+### Ghi đè khi kế thừa
+Việc ghi đè chính là việc lớp con kế thừa lớp cha nhưng có thể thay đổi các hành vi được kế thừa.
+
+Việc này được thực hiện bằng cách lớp con có quyền tạo một phương thức giống hệt với phương thức của lớp cha.
+
+Bởi đôi khi những định nghĩa trong class cha lại không phù hợp với mục đích sử dụng của class con.
+
+Trong ví dụ trên, class con Student đã ghi đè (override) method `print()` của class cha User.
+
+Vì vậy khi chương trình gọi lệnh `print()` từ một object của class Student, nó sẽ tìm đến method `print()` mới override của class Student.
+
+Ở đây chúng ta có câu lệnh `super().print()`, với câu lệnh này, python sẽ gọi tới hàm print() của class cha, trước khi chạy câu print kế tiếp.
+
+### Ghi đè hàm tạo
+Là việc chúng ta tạo một class con kế thừa một class cha, đồng thời muốn định nghĩa lại hàm constructor của riêng mình.
+
+Thông thường nếu không cần ghi đè hàm tạo, khi tạo lớp con, chúng ta không cần xây dựng hàm `__init__` ở lớp con.
+
+Khi ghi đè hàm tạo, chúng ta cần xây dựng lại hàm `__init__`, và có một điều bắt buộc trong hàm tạo của lớp con là phải gọi lại hàm tạo của lớp cha trông qua phương thức `super()`.
+
+Trong ví dụ trên, chúng ta đã ghi đè hàm tạo như sau:
+
+    class Student(Person):
+        def __init__(self, fname='', lname='', age=18, group='', specialization=''):
+            super().__init__(fname, lname, age)
+            self.group = group
+            self.specialization = specialization
+
+### Private và protected trong kế thừa
+Khi một lớp con kế thừa bởi một lớp cha, thì từ lớp con chỉ có thể truy cập các member public và protected được kế thừa từ lớp cha, không thể truy cập các member private từ lớp cha.
+
+Ví dụ:
+
+    class Parent:
+        count = 0
+        def __init__(self):
+            self._protected = True
+            self.__private = True
+
+    class Child(Parent):
+        ...
+
+    c1 = Child()
+    print(c1._protected) # True
+    print(c1.__private) # 'Child' object has no attribute '__private'
+
+Ở đoạn mã trên, khi chúng ta cố gắng in ra `c1.__private`, chương trình sẽ báo lỗi, vì __private là private member của class Parent.

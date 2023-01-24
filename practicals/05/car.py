@@ -22,11 +22,22 @@ class Car:
 
         Drive given distance if car has enough fuel
         or drive until fuel runs out return the distance actually driven.
+        1 km ~ 1 fuel
         """
-        # TODO
+        if distance <= 1*self.fuel:
+            self.fuel -= distance
+            return distance
+        else:
+            self.fuel = 0
+            return 1*self.fuel
 
-car1 = Car()
 
-# car1.add_fuel
-# car1.drive
-# print(car1.distance)
+car1 = Car(name="oto")
+
+print(f"{car1.name} - {car1.fuel}")
+car1.add_fuel(50)
+print(f"{car1.name} - {car1.fuel}")
+print(car1.drive(25))
+print(f"{car1.name} - {car1.fuel}")
+print(car1.drive(30))
+print(f"{car1.name} - {car1.fuel}")

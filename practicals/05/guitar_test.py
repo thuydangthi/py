@@ -16,3 +16,13 @@ Let's say we wrote the is_vintage() method incorrectly, then we want to see some
 50-year old guitar is_vintage() - Expected True. Got False
 We can see that the actual does not match the expected, so we know we need to fix something.
 """
+
+from guitar import Guitar
+
+
+g1 = Guitar(name="Gibson L-5 CES", year=2000)
+
+print(g1)
+print(f"{g1.name} get_age() - Expected 23. Got {g1.get_age()}")
+print(f"{g1.name} is_vintage() - Expected False. Got {g1.is_vintage()}")
+

@@ -1,23 +1,18 @@
-class User:
+class Student:
     count = 0
 
-    def __init__(self, name="Thuy", age=12, cccd="8768275628", is_active=True):
+    def __init__(self, name, house, age):
         self.name = name
+        self.house = house
         self.age = age
-        self.cccd = cccd
-        self.is_active = is_active
-        User.count += 1
+        Student.count += 1
 
-    def login(self):
-        if not self.is_active:
-            print("Login fail")
-        else:
-            print("Hello")
+    def attendance(self):
+        print(f"{self.name} is here!")
+
+    def __str__(self):
+        return f"{self.name} is {self.age}"
 
 
-
-u1 = User(name="Chi")
-# u1.login()
-
-u2 = User(is_active=False)
-# u2.login()
+student1 = Student("Lan", "Gryffindor", "hhh")
+print(student1)
